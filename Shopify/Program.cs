@@ -36,6 +36,7 @@ items.Add(item1.ToString());
 items.Add(item2.ToString());
 items.Add(item3.ToString());
 
+
 shopItemService.WriteToFile(items);
 
 

@@ -33,9 +33,13 @@ namespace Shopify.Services
             var uniqueTagNames = GetUniqueTagNames();
             Console.WriteLine("**************************************");
             Console.WriteLine("Unique Tag Names:");
-            foreach (var name in uniqueTagNames)
+            using (StreamWriter sw = new StreamWriter("WriteFile.txt"))
             {
-                Console.WriteLine(name);
+                foreach (var name in uniqueTagNames)
+                {
+                    Console.WriteLine(name);
+                    sw.WriteLine(name);
+                }
             }
         }
     }
