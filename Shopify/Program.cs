@@ -12,7 +12,7 @@ var item1 = new ShopItem()
 {
     Name = "silkė",
     Description = "galima naudoti Kūčioms",
-    Tag = tagService.CreateTag(1, "sūrus"),
+    Tags = new List<Tag> { tagService.CreateTag(1, "sūrus"), tagService.CreateTag(1, "sūdytas")},
     TagExpiry = DateTime.Now.AddDays(2),
     Price = 12.25,
     ItemExpiry = DateTime.Now.AddDays(5),
@@ -26,7 +26,7 @@ var item3 = new ShopItem()
 {
     Name = "sirupas",
     Description = "skiedžiamas vandeniu",
-    Tag = tagService.CreateTag(1, "saldus"),
+    Tags = new List<Tag> { tagService.CreateTag(1, "saldus") },
     TagExpiry = DateTime.Now.AddDays(2),
     Price = 12.25,
     ItemExpiry = DateTime.Now.AddDays(5),
