@@ -31,6 +31,7 @@ namespace Shopify.Services
         public void PrintUniqueTagNames()
         {
             var uniqueTagNames = GetUniqueTagNames();
+            Console.WriteLine("**************************************");
             Console.WriteLine("Unique Tag Names:");
             foreach (var name in uniqueTagNames)
             {
