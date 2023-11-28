@@ -26,10 +26,10 @@ namespace Shopify.Models
             this.ItemExpiry = itemExpiry;
         }
         public ShopItem()
-        {
+        { 
             
         }
-        public override string ToString() //trūksta tag listo printinimo
+        public override string ToString() //trūksta tagų listo printinimo
         {
             return $"Name: {Name}, Desc: {Description}, Tag expiry Date: {TagExpiry}," +
                 $" Price: {Price}, Item expiry date: {ItemExpiry}";
