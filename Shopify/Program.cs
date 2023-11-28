@@ -1,5 +1,4 @@
-﻿
-using Shopify.Models;
+﻿using Shopify.Models;
 using Shopify.Services;
 
 
@@ -8,6 +7,7 @@ List<string> items = new List<string>();
 TagService tagService = new TagService();
 ShopItemService shopItemService = new ShopItemService();
 
+//per properties
 var item1 = new ShopItem()
 {
     Name = "silkė",
@@ -18,6 +18,7 @@ var item1 = new ShopItem()
     ItemExpiry = DateTime.Now.AddDays(5),
 };
 
+//per konstruktorių, kuriame nenaudojamas CreateTag()
 var item2 = new ShopItem("sausainiai", "su apelsinų įdaru", 2, 
     "saldus", DateTime.Now.AddDays(2), 0.79, DateTime.Now.AddDays(5));
 
@@ -36,8 +37,6 @@ items.Add(item1.ToString());
 items.Add(item2.ToString());
 items.Add(item3.ToString());
 
-
 shopItemService.WriteToFile(items);
-
 
 tagService.PrintUniqueTagNames();

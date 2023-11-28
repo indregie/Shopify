@@ -22,9 +22,9 @@ namespace Shopify.Services
             return tag;
         }
 
-        public List<string> GetUniqueTagNames()
+        public List<string> GetUniqueTagNames() //ne taip perskaičiau sąlygą, tai atrenka unikalius, o ne dubliuotus :(
         {
-            var uniqueTagNames = tags.Select(tag => tag.Name).Distinct();
+            var uniqueTagNames = tags.Select(tag => tag.Name).Distinct(); 
             return uniqueTagNames.ToList<string>();
         }
 
@@ -33,14 +33,10 @@ namespace Shopify.Services
             var uniqueTagNames = GetUniqueTagNames();
             Console.WriteLine("**************************************");
             Console.WriteLine("Unique Tag Names:");
-            using (StreamWriter sw = new StreamWriter("WriteFile.txt"))
-            {
                 foreach (var name in uniqueTagNames)
                 {
                     Console.WriteLine(name);
-                    sw.WriteLine(name);
                 }
-            }
         }
     }
 }
