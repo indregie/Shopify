@@ -6,7 +6,7 @@ namespace Shopify.Services
     public class FileManagerService : IFileManager<ShopItem>
     {
         //private List<ShopItem> _shopItems = new List<ShopItem>();
-        private string _fileName = "C:\\Users\\i.giedraityte\\Desktop\\repos\\Shopify\\Shopify\\bin\\Debug\\net8.0\\ShopItems.json";
+        private string _fileName = "C:\\Users\\Indre\\source\\repos\\Shopify2\\Shopify\\bin\\Debug\\net8.0\\ShopItems.json";
 
         //serialize to Json
         public void WriteToJsonFile(List<ShopItem> shopItems)

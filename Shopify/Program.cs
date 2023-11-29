@@ -4,9 +4,9 @@ using Shopify.Services;
 
 //List<ShopItem> shopItems = new List<ShopItem>();
 
-ShopItemService shopItemService = new ShopItemService();
-
 FileManagerService fileManagerService = new FileManagerService();
+ShopItemService shopItemService = new ShopItemService(fileManagerService);
+
 
 
 
@@ -32,7 +32,9 @@ while (true)
             var price = double.Parse(Console.ReadLine());
             Console.WriteLine("Please specify quantity of items:");
             var quantity = int.Parse(Console.ReadLine());
-            //shopItemService.AddItemToInventory(name, price, quantity);
+            shopItemService.AddItemToInventory(name, price, quantity);
+            shopItemService.ShowInventory();
+            Console.WriteLine("Item added");
             break;
         case 2:
             Console.WriteLine("Please specify removable item name:");
