@@ -23,11 +23,31 @@ namespace Shopify.Services
 
         public void ShowInventory() 
         {
-            Console.WriteLine("Items currently in inventory");
+            _shopItems = _fileManagerService.ReadFromJson();
+            if (_shopItems.Count < 0) { Console.WriteLine("Currently no items available."); }
+            Console.WriteLine("Items currently available in inventory: ");
             foreach (var item in _shopItems)
             {
-                Console.WriteLine(item.Name);
+                if (item.Quantity > 0 && item.Quantity != null)
+                {
+                    Console.WriteLine($"{item.Name}: {item.Quantity} items left.");
+                }
             }
+        }
+
+        public ShopItem SellItem (string name, int quantity) 
+        {
+            _shopItems = _fileManagerService.ReadFromJson();
+            var itemToSell = _shopItems.Single(i => i.Name == name);
+            if (itemToSell.Quantity < quantity)
+            {
+                return null;
+            }
+            itemToSell.Quantity -= quantity;
+            _fileManagerService.WriteToJsonFile(_shopItems);
+            
+
+            return itemToSell;
         }
         
 
