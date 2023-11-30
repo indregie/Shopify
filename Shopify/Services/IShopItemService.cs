@@ -1,9 +1,4 @@
 ﻿using Shopify.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Shopify.Services
 {
@@ -11,5 +6,7 @@ namespace Shopify.Services
     {
         void AddItemToInventory(string name, double price, int quantity);
         ShopItem SellItem(string name, int quantity);
+        void RemoveFromInventory(string itemName);
+        void ShowInventory();
     }
 }

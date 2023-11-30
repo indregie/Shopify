@@ -5,35 +5,48 @@ using System.Linq.Expressions;
 
 //List<ShopItem> shopItems = new List<ShopItem>();
 
-FileManagerService fileManagerService = new FileManagerService();
-ShopItemService shopItemService = new ShopItemService(fileManagerService);
+IFileManager fileManagerService = new FileManagerService();
+IShopItemService shopItemService = new ShopItemService(fileManagerService);
 ShopClientService shopClientService = new ShopClientService(fileManagerService, shopItemService);
 
 
 
 //try catch ir galimai iskelti i papildoma servisa 
 
-    while (true)
-    {
+while (true)
+{
     try
     {
-        Console.WriteLine("\n Please select and enter number: ");
+        shopItemService.ShowInventory();
+        Console.WriteLine("\n*********************************" +
+            "\nPlease select and enter number: ");
         Console.WriteLine("1. \"Add item to the list\"\r\n" +
             "2. \"Remove item from the list\" \r\n" +
             "3. \"Show my balance account\" \r\n" +
             "4. \"Topup money to my balance account\" \r\n" +
             "5. \"Buy item\" \r\n" +
-            "6.\"Display items\" \r\n" +
-            "7. \"Exit\"\r\n");
+            "6. \"Display my ordered items\" \r\n" +
+            "7. \"Exit\"\r\n" +
+            "*********************************");
 
-        var option = int.Parse(Console.ReadLine());
+        string input = Console.ReadLine();
+        int option = 0;
+        if (input[0] >= '0' && input[0] <= '9')
+        {
+            option = int.Parse(input);
+        }
+        else
+        {
+            option = -1;
+        }
         switch (option)
         {
             case 1:
                 Console.WriteLine("Please specify item name:");
                 var name = Console.ReadLine();
                 Console.WriteLine("Please specify item price:");
-                var price = double.Parse(Console.ReadLine());
+                var priceInput = Console.ReadLine();
+                var price = double.Parse(priceInput.Replace('.', ','));
                 Console.WriteLine("Please specify quantity of items:");
                 var quantity = int.Parse(Console.ReadLine());
                 shopItemService.AddItemToInventory(name, price, quantity);
@@ -42,8 +55,8 @@ ShopClientService shopClientService = new ShopClientService(fileManagerService, 
                 break;
             case 2:
                 Console.WriteLine("Please specify removable item name:");
-                var toRemove = Console.ReadLine();
-                //shopItemService.AddItemToInventory(name, price, quantity);
+                string itemToRemove = Console.ReadLine();
+                shopItemService.RemoveFromInventory(itemToRemove);
                 break;
             case 3:
                 var currentBalance = shopClientService.DisplayBalance();
@@ -56,19 +69,21 @@ ShopClientService shopClientService = new ShopClientService(fileManagerService, 
                 break;
             case 5:
                 shopItemService.ShowInventory();
-                Console.WriteLine($"Please specify the item that you want to buy:");
+                Console.WriteLine($"\nPlease specify the item that you want to buy:");
                 var itemToBuy = Console.ReadLine();
                 Console.WriteLine($"Please specify the quantity of {itemToBuy} that you want to buy");
                 var quantityToBuy = int.Parse(Console.ReadLine());
                 shopClientService.BuyItem(itemToBuy, quantityToBuy);
                 break;
             case 6:
-                Console.WriteLine($"Here are all items that you added to cart:");
-                //shopItemService.AddItemToInventory(name, price, quantity);
+                shopClientService.ShowClientCart();
                 break;
             case 7:
                 //exit
                 return;
+            default: //kazkodel catch message rodo vietoj sito
+                Console.WriteLine("Please enter number from 1 to 7.");
+                break;
         }
     }
     catch (Exception e)

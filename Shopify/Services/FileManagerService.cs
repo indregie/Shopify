@@ -3,10 +3,10 @@ using System.Text.Json;
 
 namespace Shopify.Services
 {
-    public class FileManagerService : IFileManager<ShopItem>
+    public class FileManagerService : IFileManager
     {
         //private List<ShopItem> _shopItems = new List<ShopItem>();
-        private string _fileName = "C:\\Users\\Indre\\source\\repos\\Shopify2\\Shopify\\bin\\Debug\\net8.0\\ShopItems.json";
+        private string _fileName = "C:\\Users\\i.giedraityte\\Desktop\\repos\\Shopify\\Shopify\\bin\\Debug\\net8.0\\ShopItems.json";
 
         //serialize to Json
         public void WriteToJsonFile(List<ShopItem> shopItems)
@@ -20,25 +20,13 @@ namespace Shopify.Services
         {
             string jsonString = File.ReadAllText(_fileName);
             List<ShopItem> shopItems = new List<ShopItem>();
+            
             shopItems = JsonSerializer.Deserialize<List<ShopItem>>(jsonString);
+            if (jsonString == null)
+            {
+                return new List<ShopItem>();
+            }
             return shopItems;
         }
-
-
-
-
-
-        //public void WriteToFile(List<string> items)
-        //{
-        //    using (StreamWriter sw = new StreamWriter("WriteFile.txt"))
-        //    {
-        //        foreach (var item in items)
-        //        {
-        //            Console.WriteLine(item.ToString());
-        //            sw.WriteLine(item.ToString());
-        //        }
-        //    }
-
-        //}
     }
 }

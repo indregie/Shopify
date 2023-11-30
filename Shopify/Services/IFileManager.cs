@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Shopify.Services
 {
-    public interface IFileManager<T> 
+    public interface IFileManager 
     {
-        void WriteToJsonFile(List<T> filePath);
-        List<T> ReadFromJson();
+        void WriteToJsonFile(List<ShopItem> filePath);
+        List<ShopItem> ReadFromJson();
     }
 }

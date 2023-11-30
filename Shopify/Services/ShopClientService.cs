@@ -11,10 +11,10 @@ namespace Shopify.Services
     {
         private double _balance = 20;
         private List<ShopItem> _clientItems;
-        private IFileManager<ShopItem> _fileManagerService;
+        private IFileManager _fileManagerService;
         private IShopItemService _shopItemService;
 
-        public ShopClientService(IFileManager<ShopItem> fileManagerService, IShopItemService shopItemService)
+        public ShopClientService(IFileManager fileManagerService, IShopItemService shopItemService)
         {
             this._fileManagerService = fileManagerService;
             this._shopItemService = shopItemService;
@@ -52,6 +52,20 @@ namespace Shopify.Services
                 Quantity = quantityToBuy,
             });
             Console.WriteLine("Your buying process was successfull.");
+        }
+
+        public void ShowClientCart()
+        {
+            if (_clientItems.Count <= 0) 
+            { 
+                Console.WriteLine("You have not added any item to your cart yet.\n");
+                return;
+            }
+            foreach (var item in _clientItems)
+            {
+                Console.WriteLine($"You have added {item.Name}, {item.Quantity} items, for the price of {item.Price} \n");
+            }
+
         }
     }
 }
