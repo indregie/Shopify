@@ -3,15 +3,10 @@ using Shopify.Services;
 using System.Linq.Expressions;
 
 
-//List<ShopItem> shopItems = new List<ShopItem>();
-
 IFileManager fileManagerService = new FileManagerService();
 IShopItemService shopItemService = new ShopItemService(fileManagerService);
 ShopClientService shopClientService = new ShopClientService(fileManagerService, shopItemService);
 
-
-
-//try catch ir galimai iskelti i papildoma servisa 
 
 while (true)
 {
@@ -43,7 +38,7 @@ while (true)
         {
             case 1:
                 Console.WriteLine("Please specify item name:");
-                var name = Console.ReadLine();
+                var name = Console.ReadLine().ToLower().Trim();
                 Console.WriteLine("Please specify item price:");
                 var priceInput = Console.ReadLine();
                 var price = double.Parse(priceInput.Replace('.', ','));
@@ -55,7 +50,7 @@ while (true)
                 break;
             case 2:
                 Console.WriteLine("Please specify removable item name:");
-                string itemToRemove = Console.ReadLine();
+                string itemToRemove = Console.ReadLine().ToLower().Trim();
                 shopItemService.RemoveFromInventory(itemToRemove);
                 break;
             case 3:
@@ -64,13 +59,14 @@ while (true)
                 break;
             case 4:
                 Console.WriteLine($"Please specify the amount that you want to topup:");
-                double topupSum = double.Parse(Console.ReadLine());
+                var topupInput = Console.ReadLine();
+                double topupSum = double.Parse(topupInput.Replace('.', ','));
                 shopClientService.TopupBalance(topupSum);
                 break;
             case 5:
                 shopItemService.ShowInventory();
                 Console.WriteLine($"\nPlease specify the item that you want to buy:");
-                var itemToBuy = Console.ReadLine();
+                var itemToBuy = Console.ReadLine().ToLower().Trim();
                 Console.WriteLine($"Please specify the quantity of {itemToBuy} that you want to buy");
                 var quantityToBuy = int.Parse(Console.ReadLine());
                 shopClientService.BuyItem(itemToBuy, quantityToBuy);
@@ -81,7 +77,7 @@ while (true)
             case 7:
                 //exit
                 return;
-            default: //kazkodel catch message rodo vietoj sito
+            default:
                 Console.WriteLine("Please enter number from 1 to 7.");
                 break;
         }

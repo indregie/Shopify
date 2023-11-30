@@ -11,8 +11,16 @@ namespace Shopify.Services
         //serialize to Json
         public void WriteToJsonFile(List<ShopItem> shopItems)
         {
-            var jsonFile = JsonSerializer.Serialize(shopItems);
-            File.WriteAllText(_fileName, jsonFile);
+            try 
+            {
+                var jsonFile = JsonSerializer.Serialize(shopItems);
+                File.WriteAllText(_fileName, jsonFile);
+            }
+            catch (Exception e) 
+            { 
+                Console.WriteLine(e.Message);   
+            }
+
         }
 
         //deserialize Json
@@ -20,7 +28,7 @@ namespace Shopify.Services
         {
             string jsonString = File.ReadAllText(_fileName);
             List<ShopItem> shopItems = new List<ShopItem>();
-            
+
             shopItems = JsonSerializer.Deserialize<List<ShopItem>>(jsonString);
             if (jsonString == null)
             {

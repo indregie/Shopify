@@ -31,7 +31,8 @@ namespace Shopify.Services
                 { 
                     Console.WriteLine("Currently no items available."); 
                 }
-                Console.WriteLine("Items currently available in shop: ");
+                Console.WriteLine("\n///////////////////////////////////////" +
+                    "\nItems currently available in shop: ");
                 foreach (var item in _shopItems)
                 {
                     if (item.Quantity > 0 && item.Quantity != null)
@@ -56,8 +57,6 @@ namespace Shopify.Services
             }
             itemToSell.Quantity -= quantity;
             _fileManagerService.WriteToJsonFile(_shopItems);
-            
-
             return itemToSell;
         }
         
